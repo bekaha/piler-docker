@@ -438,6 +438,9 @@ cat >> $etcPth/config-site.php <<EOF
 \$config['DEFAULT_LANG'] = 'de';
 \$config['DATE_TEMPLATE'] = 'd.m.Y H:i:s';
 
+// manticore real-time indexing
+\$config['SPHINX_MAIN_INDEX'] = 'piler1';
+
 // authentication
 // Enable authentication against an imap server
 \$config['ENABLE_IMAP_AUTH'] = 1;
