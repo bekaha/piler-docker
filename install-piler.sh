@@ -433,6 +433,8 @@ cat >> $etcPth/config-site.php <<EOF
 
 // general settings.
 \$config['TIMEZONE'] = '$TIME_ZONE';
+
+// set default language and date template (german)
 \$config['DEFAULT_LANG'] = 'de';
 \$config['DATE_TEMPLATE'] = 'd.m.Y H:i:s';
 
