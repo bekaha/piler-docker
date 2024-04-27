@@ -526,10 +526,23 @@ fi
 
 sed -i "s/default_retention_days=.*/default_retention_days=$DEFAULT_RETENTION_DAYS/" $etcPth/piler.conf
 sed -i "s/update_counters_to_memcached=.*/update_counters_to_memcached=1/" $etcPth/piler.conf
+sed -i "s/rtindex=0/rtindex=1/" $etcPth/piler.conf
 
 cat >> $etcPth/piler.conf <<EOF
 queuedir=/var/piler/store
+sphxdb=piler1
 EOF
+
+# add mantiore real-time indexing
+
+if [ ! -f $etcPth/manticore.conf.bak ]; then
+    cp $etcPth/manticore.conf $etcPth/manticore.conf.bak
+else
+    rm $etcPth/manticore.conf
+    cp $etcPth/manticore.conf.bak $etcPth/manticore.conf
+fi
+
+sed -i "s/define('RT', 0);/define('RT', 1);/" $etcPth/manticore.conf
 
 # piler restart
 echo
