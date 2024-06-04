@@ -258,15 +258,18 @@ elif [ -f $installPth/.configDone ]; then
     done
 fi
 
-# uninstall Postfix
-while true; do
-    read -ep "Postfix must be uninstalled prior to installation. Do you want to uninstall Postfix now? (y/n): " yn
-    case $yn in
-        [Yy]* ) apt purge postfix -y; break;;
-        [Nn]* ) echo -e "${redBold}    The installation process is aborted because Postfix has not been uninstalled.!! ${normal}"; exit;;
-        * ) echo -e "${redBold} Please confirm with y or n.${normal}";;
-    esac
-done
+# uninstall Postfix, if SMTP_PORT is 25
+if [[ "${SMTP_PORT}" -eq 25 ]]
+then
+    while true; do
+        read -ep "Postfix must be uninstalled prior to installation. Do you want to uninstall Postfix now? (y/n): " yn
+        case $yn in
+            [Yy]* ) apt purge postfix -y; break;;
+            [Nn]* ) echo -e "${redBold}    The installation process is aborted because Postfix has not been uninstalled.!! ${normal}"; exit;;
+            * ) echo -e "${redBold} Please confirm with y or n.${normal}";;
+        esac
+    done
+fi
 
 # start piler install
 while true; do
