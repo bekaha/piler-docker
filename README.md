@@ -154,6 +154,18 @@ To leave the container on the console you have to execute 2x `exit`.
 
 ## Changelog
 
+### 0.9.7 (14.06.2024)
+* (simatec) Release 0.9.7
+
+### 0.9.6 (11.06.2024)
+* (simatec) Hostname Fix
+
+### 0.9.5 (10.06.2024)
+* (simatec) small fix
+
+### 0.9.4 (05.06.2024)
+* (simatec) patch for Piler Update added
+
 ### 0.9.3 (01.06.2024)
 * (simatec) Piler v1.4.5 updated
 * (simatec) MariaDB v11.1.2 updated

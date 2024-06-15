@@ -51,11 +51,23 @@ BLA::stop_loading_animation() {
 
 #######################################################################################
 
-echo
-echo "${greenBold}${HLINE_SMALL}"
-echo "Welcome to Piler-Docker Installer"
-echo "${greenBold}${HLINE_SMALL}${normal}"
-echo
+function header_info {
+clear
+
+echo "${greenBold}"
+cat <<"EOF"
+
+        _ _             ___           _        _ _           
+  _ __ (_) | ___ _ __  |_ _|_ __  ___| |_ __ _| | | ___ _ __ 
+ | '_ \| | |/ _ \ '__|  | || '_ \/ __| __/ _` | | |/ _ \ '__|
+ | |_) | | |  __/ |     | || | | \__ \ || (_| | | |  __/ |   
+ | .__/|_|_|\___|_|    |___|_| |_|___/\__\__,_|_|_|\___|_|   
+ |_|                                                         
+
+EOF
+echo "${normal}"
+}
+header_info
 
 #######################################################################################
 
@@ -213,8 +225,8 @@ if [ ! -f $installPth/.configDone ]; then
     while true; do
         read -ep "If Use automatic import to 5 minutes interval (yes/no)? / Y|N (Default: no): " jn
         case $jn in
-            [Yy]* ) AUTO_IMPORT=true; break;;
-            [Nn]* ) AUTO_IMPORT=false; break;;
+            [Yy]* ) sed -i 's/AUTO_IMPORT=.*/AUTO_IMPORT=true/g' ./piler.conf; break;;
+            [Nn]* ) sed -i 's/AUTO_IMPORT=.*/AUTO_IMPORT=false/g' ./piler.conf; break;;
             * ) echo -e "${redBold} Please confirm with Y or N.${normal}";;
         esac
     done
@@ -288,6 +300,14 @@ done
 
 if [ ! -f $installPth/.env ]; then
     ln -s ./piler.conf .env
+fi
+
+# create Network
+if docker network inspect pilernet > /dev/null 2>&1; then
+    echo "Network pilernet is available"
+else
+    docker network create pilernet
+    echo "Network pilernet created"
 fi
 
 # Build Piler
@@ -440,6 +460,8 @@ cat >> $cronPth/piler <<EOF
 ### Piler import added by Piler-Installer
 */5 * * * * /usr/libexec/piler/import.sh
 EOF
+
+chown 1000:crontab $cronPth/piler
 fi
 
 if [ "$USE_MAILCOW" = true ]; then
