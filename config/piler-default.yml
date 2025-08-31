@@ -84,6 +84,13 @@ services:
     depends_on:
       - memcached
       - mysql
+# Debian 13 - Message: Rsyslog can't start inside of a docker container
+# Setting ulimits fixes this ...
+    ulimits:
+      nproc: 65535
+      nofile:
+        soft: 20000
+        hard: 40000
 
 networks:
   pilernet:
