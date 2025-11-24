@@ -2,3 +2,8 @@
 .vscode
 .DS_Store
 piler.conf
+Mailpiler
+.env
+.configDone
+*.deb
+docker-compose.yml

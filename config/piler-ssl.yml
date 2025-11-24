@@ -56,6 +56,23 @@ services:
       retries: 3
     volumes:
       - db_data:/var/lib/mysql
+      - ./piler.cnf:/etc/mysql/conf.d/piler.cnf:ro
+
+  manticore:
+    image: manticoresearch/manticore:13.11.0
+    container_name: manticore_piler
+    networks:
+      - pilernet
+    restart: unless-stopped
+    volumes:
+      - ./manticore.conf:/etc/manticoresearch/manticore.conf
+      - piler_manticore:/var/lib/manticore
+    deploy:
+      resources:
+        reservations:
+          memory: 512M
+        limits:
+          memory: 512M
 
   memcached:
     image: memcached:latest
@@ -78,12 +95,13 @@ services:
     hostname: ${PILER_DOMAIN}
     init: true
     environment:
+      - MANTICORE_HOSTNAME=manticore_piler
+      - MEMCACHED_HOSTNAME=memcached_piler
       - MYSQL_DATABASE=${MYSQL_DATABASE}
       - MYSQL_USER=${MYSQL_USER}
       - MYSQL_PASSWORD=${MYSQL_PASSWORD}
       - MYSQL_HOSTNAME=mysql_piler
       - PILER_HOSTNAME=${PILER_DOMAIN}
-      - MEMCACHED_HOST=memcached_piler
       - TZ=${TIME_ZONE}
       - RT=1
       - VIRTUAL_HOST=${PILER_DOMAIN}
@@ -113,6 +131,7 @@ services:
           memory: 512M
     depends_on:
       - memcached
+      - manticore
       - mysql
 
 networks:
@@ -127,3 +146,4 @@ volumes:
   piler_var_imap:
   piler_var_stat:
   piler_cron:
+  piler_manticore:

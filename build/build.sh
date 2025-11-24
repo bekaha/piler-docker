@@ -21,8 +21,7 @@ chmod a+x start.sh
 # Package Download
 rm -f $buildPth/*.deb
 
-#curl -OL https://bitbucket.org/jsuto/piler/downloads/$PILER_PACKAGE
-wget https://bitbucket.org/jsuto/piler/downloads/$PILER_PACKAGE -O $PILER_PACKAGE
+wget https://github.com/jsuto/piler/releases/download/piler-$PILER_VERSION/$PILER_PACKAGE -O $PILER_PACKAGE
 
 set -o errexit
 set -o pipefail
@@ -34,5 +33,5 @@ if [ ! -f $buildPth/$PILER_PACKAGE ]; then
     echo "ERROR: missing package name" 1>&2; exit 1; 
 fi
 
-docker build --build-arg PACKAGE="$PILER_PACKAGE" -t "$IMAGE_NAME" .
+docker buildx build --load --build-arg PACKAGE="$PILER_PACKAGE" -t "$IMAGE_NAME" .
 exit 0
