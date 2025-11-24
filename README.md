@@ -154,6 +154,9 @@ To leave the container on the console you have to execute 2x `exit`.
 
 ## Changelog
 
+### 1.0.0 (24.11.2025)
+* (simatec) Update to Piler 1.4.8
+
 ### 0.9.7 (14.06.2024)
 * (simatec) Fix Network on Update
 
@@ -239,7 +242,7 @@ To leave the container on the console you have to execute 2x `exit`.
 ## License
 MIT License
 
-Copyright (c) 2022 - 2024 simatec
+Copyright (c) 2022 - 2025 simatec
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
