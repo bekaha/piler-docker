@@ -408,6 +408,9 @@ cat >> $etcPth/config-site.php <<EOF
 \$config['TIMEZONE'] = '$TIME_ZONE';
 \$config['DEFAULT_LANG'] = 'de';
 \$config['DATE_TEMPLATE'] = 'd.m.Y H:i:s';
+\$config['DATE_TEMPLATE_SEARCH_HITS'] = 'd.m.Y H:i:s';
+\$config['DATE_PREVIEW_TEMPLATE'] = 'd.m.Y H:i:s';
+\$config['DATE_FORMAT'] = 'DD-MM-YYYY';
 
 // authentication
 // Enable authentication against an imap server
