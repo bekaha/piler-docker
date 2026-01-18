@@ -406,6 +406,8 @@ cat >> $etcPth/config-site.php <<EOF
 
 // general settings.
 \$config['TIMEZONE'] = '$TIME_ZONE';
+\$config['DEFAULT_LANG'] = 'de';
+\$config['DATE_TEMPLATE'] = 'd.m.Y H:i:s';
 
 // authentication
 // Enable authentication against an imap server
